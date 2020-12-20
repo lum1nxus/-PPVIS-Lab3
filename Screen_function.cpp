@@ -1,6 +1,11 @@
 #include "Screen.h"
+#include "Card_base.h"
 
-void Screen_operation::Show()
+using namespace std;
+
+extern vector<Card_base> database;
+
+void Screen_operation::Show(int h)
 {
 	Screen* screen;
 	int x;
@@ -26,21 +31,21 @@ void Screen_operation::Show()
 	{
 	case 1: 
 		screen = new Screen_get;
-		screen->Show();
+		screen->Show(h);
 		break;
 	case 2:
 		screen = new Screen_transfer;
-		screen->Show();
+		screen->Show(h);
 		break;
 	case 3:
 		exit(0);
 		break;
 	}
 	screen = new Screen_operation;
-	screen->Show();
+	screen->Show(h);
 }
 
-void Screen_pin::Show()
+void Screen_pin::Show(int h)
 {
 	string pin;
 	bool atempts = false;
@@ -55,10 +60,12 @@ void Screen_pin::Show()
 			{
 				throw ++a;
 			}
-			else if (a == 1)
+			else if (pin != database[h].Get_card().Get_pin_code())
 			{
 				throw ++a;
 			}
+			cout << "Right PIN" << endl;
+			atempts = true;
 		}
 		catch (int a)
 		{
@@ -72,12 +79,12 @@ void Screen_pin::Show()
 	}
 }
 
-void Screen_transfer::Show()
+void Screen_transfer::Show(int h)
 {
 
 }
 
-void Screen_get::Show()
+void Screen_get::Show(int h)
 {
 
 }

@@ -15,18 +15,22 @@ Session::Session()
 	Entry_card(card);
 	Entry_owner(user);
 	Make_data_base(card, user);
-	Find_owner();
+	int h = Find_owner();
+	Screen* screen = new Screen_pin;
+	screen->Show(h);
+	screen = new Screen_operation;
+	screen->Show(h);
 }
 
 int Session::Find_owner()
 {
+	int h = 0;
 	try
 	{
-		int n = 0;
 		string number;
 		cout << "Enter number of card using - between digits, for example: 5465-6545-6547-6567" << endl;
 		cin >> number;
-		if (!check_card(number, n))
+		if (!check_card(number, h))
 		{
 			throw "Not correct, try again";
 		}
@@ -36,6 +40,7 @@ int Session::Find_owner()
 		cout << str << endl;
 		return Find_owner();
 	}
+	return h;
 }
 
 bool check_card(string number, int& a)
@@ -47,7 +52,7 @@ bool check_card(string number, int& a)
 			return 0;
 		}
 	}
-	while (a <= database.size())
+	while (a < database.size())
 	{
 		if (number == database[a].Get_card().Get_Number())
 		{
@@ -56,6 +61,11 @@ bool check_card(string number, int& a)
 		a++;
 	}
 	return 0;
+}
+
+void Session::Next(Screen& screen, int h)
+{
+	screen.Show(h);
 }
 
 
