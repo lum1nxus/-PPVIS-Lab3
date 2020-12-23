@@ -1,5 +1,7 @@
 #include "Screen.h"
 #include "Card_base.h"
+#include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -14,7 +16,7 @@ void Screen_operation::Show(int h)
 	{
 		try
 		{
-			cout << "Choose operation: 1: Get money \t 2: Send money \t 3: Exit" << endl;
+			cout << "Choose operation: 1: Get money \t 2: Send money \t 3: Internet_operation \t 4: Exit" << endl;
 			cin >> x;
 			if (x < 0 || x > 3)
 			{
@@ -22,14 +24,14 @@ void Screen_operation::Show(int h)
 			}
 			attempts = true;
 		}
-		catch(const char* str)
+		catch (const char* str)
 		{
 			cout << str << endl;
 		}
 	}
 	switch (x)
 	{
-	case 1: 
+	case 1:
 		screen = new Screen_get;
 		screen->Show(h);
 		break;
@@ -38,6 +40,9 @@ void Screen_operation::Show(int h)
 		screen->Show(h);
 		break;
 	case 3:
+		screen = new Screen_internet_operation;
+		screen->Show(h);
+	case 4:
 		exit(0);
 		break;
 	}
@@ -52,7 +57,7 @@ void Screen_pin::Show(int h)
 	int a = 0;
 	while (!atempts)
 	{
-		try 
+		try
 		{
 			cout << "Enter your PIN code: " << endl;
 			cin >> pin;
@@ -187,16 +192,53 @@ void Screen_validity::Show(int h)
 	}
 	for (int i = 0; i < str.size(); i++)
 	{
-		if (v[0] > l[0])
+		if (v[1] > l[1])
 		{
 			cout << "Card out of expiration date" << endl;
 			exit(0);
 		}
-		else if (v[1] > l[1])
+		else if (v[1] == l[1])
 		{
-			cout << "Card out of expiration date" << endl;
-			exit(0);
+			if (v[0] > l[0])
+			{
+				cout << "Card out of expiration date" << endl;
+				exit(0);
+			}
 		}
 	}
-	cout << "Your credit card is valid until" << database[h].Get_card().Get_validity();
+	cout << "Your credit card is valid until " << database[h].Get_card().Get_validity() << endl;
+}
+
+void Screen_internet_operation::Show(int h)
+{
+	string str;
+	int x = rand() % 500 + 1;
+	try
+	{
+		cout << "Joining http://nalog.gov.by/ according to your request " << endl;
+		for (int i = 0; i < 6; i++)
+		{
+			cout << "...\t";
+			Sleep(100);
+		}
+		cout << endl << "Your current fine is " << x << endl << "Do you want to pay off your fine? Y/N" << endl;
+		cin >> str;
+		if (str == "N")
+		{
+			throw "Negative answer";
+		}
+		if (stoi(database[h].Get_card().Get_money()) < x)
+		{
+			throw "You dont have enough money to pay off your fine";
+		}
+	}
+	catch (const char* str1)
+	{
+		cout << str1 << endl;
+		Screen* screen = new Screen_operation;
+		screen->Show(h);
+	}
+	string str2 = to_string(stoi(database[h].Get_card().Get_money()) - x);
+	cout << "Current balance is " << str2 << "$" << endl;
+	database[h].Get_card().Set_money(str2);
 }
