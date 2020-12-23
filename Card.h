@@ -23,5 +23,6 @@ public:
 	string Get_pin_code();
 	string Get_cipher();
 	string Get_money();
+	string Get_validity();
 };
 

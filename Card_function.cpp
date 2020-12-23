@@ -51,3 +51,8 @@ string Card::Get_money()
 {
 	return money;
 }
+
+string Card::Get_validity()
+{
+	return Validity;
+}

@@ -145,3 +145,58 @@ void Screen_get::Show(int h)
 	database[h].Get_card().Set_money(str);
 	cout << "Operation succeeded, getting back to the main menu... " << endl;
 }
+
+void Screen_validity::Show(int h)
+{
+	string str;
+	int i = 2;
+	int g = 5;
+	try
+	{
+		cout << "Enter current date using / between digits: for example 12/30 " << endl;
+		cin >> str;
+		if (str[i] != '/' && str[g] != ' ')
+		{
+			throw "Not correct date";
+		}
+	}
+	catch (const char* str1)
+	{
+		cout << str1 << endl;
+		Screen* screen = new Screen_validity;
+		screen->Show(h);
+	}
+	string str2 = database[h].Get_card().Get_validity();
+	bool check = true;
+	vector<string> v;
+	string d = "/";
+	int b, e = 0;
+	while ((b = str.find_first_not_of(d, e)) != str.npos)
+	{
+		e = str.find_first_of(d, b);
+		v.push_back(str.substr(b, e - b));
+		b = e;
+	}
+	vector<string> l;
+	int y, o = 0;
+	while ((y = str2.find_first_not_of(d, o)) != str2.npos)
+	{
+		o = str2.find_first_of(d, y);
+		l.push_back(str2.substr(y, o - y));
+		y = o;
+	}
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (v[0] > l[0])
+		{
+			cout << "Card out of expiration date" << endl;
+			exit(0);
+		}
+		else if (v[1] > l[1])
+		{
+			cout << "Card out of expiration date" << endl;
+			exit(0);
+		}
+	}
+	cout << "Your credit card is valid until" << database[h].Get_card().Get_validity();
+}

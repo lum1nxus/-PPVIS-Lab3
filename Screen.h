@@ -34,3 +34,15 @@ class Screen_get : public Screen
 public:
 	void Show(int h);
 };
+
+class Screen_validity : public Screen
+{
+public:
+	void Show(int h);
+};
+
+class Screen_internet_operation : public Screen
+{
+public:
+	void Show(int h);
+};
