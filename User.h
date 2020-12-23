@@ -16,6 +16,7 @@ public:
 	void Set_age(string &age);
 	void Set_cell(string& cell);
 	Name& Get_name();
+	string Get_cell();
 };
 
 

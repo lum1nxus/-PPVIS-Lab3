@@ -21,3 +21,8 @@ Name& User::Get_name()
 {
 	return name;
 }
+
+string User::Get_cell()
+{
+	return cell;
+}

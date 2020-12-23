@@ -6,6 +6,7 @@
 #include "Card.h"
 #include "Encryption.h"
 #include "Card_base.h"
+#include "Session.h"
 
 using namespace std;
 
@@ -57,17 +58,9 @@ void Entry_owner(vector<User>& user)
 	f.close();
 }
 
+
 void Make_data_base(vector<Card>& card,vector<User>& user)
 {
-	for (int i = 0; i < card.size(); i++)
-	{
-		Name name = user[i].Get_name();
-		string str = name.first + " " + name.second;
-		if (decryption(card[i].Get_cipher()) == str)
-		{
-			Card_base temp(card[i],user[i]);
-			database.push_back(temp);
-		}
-	}
+
 }
 

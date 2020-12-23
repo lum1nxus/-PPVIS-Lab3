@@ -63,9 +63,5 @@ bool check_card(string number, int& a)
 	return 0;
 }
 
-void Session::Next(Screen& screen, int h)
-{
-	screen.Show(h);
-}
 
 

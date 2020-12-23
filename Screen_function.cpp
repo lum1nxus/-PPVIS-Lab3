@@ -1,5 +1,6 @@
 #include "Screen.h"
 #include "Card_base.h"
+#include "Entry.h"
 
 using namespace std;
 
@@ -81,7 +82,7 @@ void Screen_pin::Show(int h)
 
 void Screen_transfer::Show(int h)
 {
-
+	
 }
 
 void Screen_get::Show(int h)
@@ -89,29 +90,9 @@ void Screen_get::Show(int h)
 
 }
 
-/*
-void Screen_get::Show()
-{
-	double money;
-	bool atempts = false;
-	while (!atempts)
-	{
-		try
-		{
-			cout << << "Enter ammount of money to to withdraw:" << endl;
-			cin >> money;
-			if (money > )
-			{
-				throw "You dont have such ammount of money in your cell";
-			}
-		}
-		catch (const )
-		{
 
-		}
-	}
-}
-*/
+
+
 
 
 
