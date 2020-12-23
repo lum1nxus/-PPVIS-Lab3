@@ -30,6 +30,8 @@ void Entry_card(vector<Card> &card)
 		n.Set_validity(line);
 		f >> line;
 		n.Set_cvv(line);
+		f >> line;
+		n.Set_money(line);
 		card.push_back(n);
 	}
 	f.close();

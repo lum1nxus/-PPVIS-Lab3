@@ -81,37 +81,67 @@ void Screen_pin::Show(int h)
 
 void Screen_transfer::Show(int h)
 {
-
+	int x;
+	string y;
+	try
+	{
+		cout << "Your current balance is " << database[h].Get_card().Get_money() << "$" << endl << "Enter ammount of money to transfer: " << endl;
+		cin >> x;
+		if (x > stoi(database[h].Get_card().Get_money()))
+		{
+			throw "You entered a larger ammount than you have";
+		}
+		if (x < 0)
+		{
+			throw "You entered negative ammount of money";
+		}
+		cout << "Enter number of credit card to transfer money" << endl;
+		cin >> y;
+		for (int i = 0; i < database.size(); i++)
+		{
+			if (database[i].Get_card().Get_Number() == y)
+			{
+				string str = to_string(stoi(database[h].Get_card().Get_money()) - x);
+				cout << "Current balance is " << str << "$" << endl;
+				database[h].Get_card().Set_money(str);
+				string str1 = to_string(stoi(database[i].Get_card().Get_money()) + x);
+				database[i].Get_card().Set_money(str1);
+				cout << "Operation succeeded, getting back to the main menu... " << endl;
+			}
+		}
+	}
+	catch (const char* str)
+	{
+		cout << str << endl;
+		Screen* screen = new Screen_transfer;
+		screen->Show(h);
+	}
 }
 
 void Screen_get::Show(int h)
 {
-
-}
-
-/*
-void Screen_get::Show()
-{
-	double money;
-	bool atempts = false;
-	while (!atempts)
+	int x;
+	try
 	{
-		try
+		cout << "Your current balance is " << database[h].Get_card().Get_money() << "$" << endl << "Enter ammount of money to withdraw: " << endl;
+		cin >> x;
+		if (x > stoi(database[h].Get_card().Get_money()))
 		{
-			cout << << "Enter ammount of money to to withdraw:" << endl;
-			cin >> money;
-			if (money > )
-			{
-				throw "You dont have such ammount of money in your cell";
-			}
+			throw "You entered a larger ammount than you have";
 		}
-		catch (const )
+		if (x < 0)
 		{
-
+			throw "You entered negative ammount of money";
 		}
 	}
+	catch (const char* str)
+	{
+		cout << str << endl;
+		Screen* screen = new Screen_get;
+		screen->Show(h);
+	}
+	string str = to_string(stoi(database[h].Get_card().Get_money()) - x);
+	cout << "Current balance is " << str << "$" << endl;
+	database[h].Get_card().Set_money(str);
+	cout << "Operation succeeded, getting back to the main menu... " << endl;
 }
-*/
-
-
-
